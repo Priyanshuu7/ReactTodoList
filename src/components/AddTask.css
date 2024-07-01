@@ -45,3 +45,13 @@
   padding: 7px 10px;
   margin: 10px;
 }
+.addtask span.delete {
+  border: 0px;
+  border-radius: 5px;
+  background-color: #be3434;
+  color: #ffffff;
+  font-size: 18px;
+  padding: 7px 10px;
+  margin: 10px;
+  cursor: pointer;
+}
