@@ -1,36 +1,54 @@
 import { useState } from "react";
 import "./AddTask.css";
-export const AddTask = () => {
-  const [task, setTask] = useState("");
 
-  const handleAddTask = (event) => {
-    setTask(event.target.value);
+export const AddTask = () => {
+  const [taskValue, setTaskValue] = useState("");
+  const [progress, setProgress] = useState(false);
+
+  const handleChange = (event) => {
+    setTaskValue(event.target.value);
   };
 
   const handleReset = () => {
-    setTask("");
+    setTaskValue("");
+    setProgress(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const task = {
+      id: Math.floor(Math.random() * 10000),
+      name: taskValue,
+      completed: Boolean(progress),
+    };
+    handleReset();
   };
 
   return (
     <section className="addtask">
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
-          onChange={handleAddTask}
+          onChange={handleChange}
           type="text"
+          name="task"
           id="task"
-          required
-          placeholder="Add Task"
+          placeholder="Task Name"
           autoComplete="off"
-          value={task}
+          value={taskValue}
         />
-        <label htmlFor="date">Date</label>
-        <input type="date" id="date" required />
-        <button type="submit">Add Task</button>
-        <span onClick={handleReset} className="delete">
+        <select
+          onChange={(event) => setProgress(event.target.value)}
+          value={progress}
+        >
+          <option value="false">Pending</option>
+          <option value="true">Completed</option>
+        </select>
+        <span onClick={handleReset} className="reset">
           Reset
         </span>
+        <button type="submit">Add Task</button>
       </form>
-      <p>{task}</p>
+      <p>{taskValue}</p>
     </section>
   );
 };
